@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html >
+<body>
+    <span>Total clicks : 0</span>
+    <button id="btn"> Click me</button> <!--STEP1 HTML만든다-->
+</body>
+<script> 
+    let counter = 0;
+    const button = document.querySelector("#btn"); //STEP2html element 찾아 js에 가져오기
+    const span = document.querySelector("span"); //STEP2html element 찾아 js에 가져오기
+    function handleClick(){
+        console.log("i've been clicked") 
+        counter = counter+1; //STEP4 JS 변수 데이터 업데이트
+        span.innerText = `Total Clicks : ${counter}`; //STEP5 HTML에 변경점 업데이트
+    }
+    button.addEventListener("click",handleClick) //STEP3 : event 감지하기
+</script> <!--STEP2 HTML에 JS 가져오기-->
+</html>

@@ -1,0 +1,45 @@
+#2.1 vanillaJs 와 ReactJS의 차이를 비교해보자
+
+VanillaJS에서는
+STEP1 HTML만든다
+STEP2html element 찾아 js에 가져오기
+STEP3 : event 감지하기
+STEP4 JS 변수 데이터 업데이트
+STEP5 HTML에 변경점 업데이트
+과정을 거친다
+단순하면 당연히 문제 없겠지만,
+점점 복잡해질수록 handle 지옥에서 벗어나기 힘들다.
+
+
+ReactJS를 수행하기 위해서는
+가장 먼저 React와 React-DOM 라이브러리르 가져와야 한다.
+
+<!DOCTYPE html>
+<html>
+    <body></body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"> </script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"> </script>
+</html>
+
+아래와 같은 방법으로 리액트를 불러온다.
+console에서 React를 찍었을 때 출력이 되면 무사히 완성한 것임.
+
+ReactJS의 규칙 중 하나는 HTML을 HTML 페이지에 직접 작성하지 않는다는 점이다.
+모두다 js 파일에 react JS로 쓴다.
+
+이번에는 reacjs로 element를 생성하는 매우 귀찮고 복잡한 방법을 시현한다.
+어려운 방식을 살펴보면서 ReactJS의 본질을 이해할 수 있다.
+
+React.createElement("",{}, )
+1번째 변수 element name(div, span, button 등등...), 
+2번째 변수 property(classname id ....),
+3번째 변수 안에 들어갈 내용
+
+ReactJS는 application이 아주 interactive하도록 만들어주는 library이고,
+ReactJSDOM은  모든 React element들을 html body에 둘 수 있도록 해준다.
+
+요컨데 핵심은
+vanilla에서는 HTML을 만들고 -> JS에 가져와서 -> HTML을 수정하는 방식이었지만
+ReactJS에서는 모든것이 JS로 시작한 후 html이 되는것 (생성, 수정, 업데이트 등등) 
+생성, 수정, 렌더링도 모두 ReactJS에서 이루어지기에 
+업데이트 해야하는 HTML을 업데이트 하도록 JS 쪽에서 컨트롤 할 수 있다는 점이 중요
