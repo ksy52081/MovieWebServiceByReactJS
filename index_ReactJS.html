@@ -1,16 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <div id="root"></div>
-    </body>
-    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"> </script>
-    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"> </script>
-    <script>
-        const root = document.querySelector("#root");
-        const span = React.createElement(
-            "span", 
-            {id : "sexy-span", style:{color : 'red'}},
-            "Hello, i am a span" );
-        ReactDOM.render(span, root); //root 안에 span을 넣어다오.
-    </script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script>
+    const root = document.querySelector("#root");
+    const h3 = React.createElement(
+      "h3",
+      {
+        id: "sexy-h3",
+        style: { color: "red" },
+        onMouseEnter: () => console.log("mouse Entered"),
+      },
+      "Hello, i am a h3"
+    );
+
+    const btn = React.createElement(
+      "button",
+      {
+        onClick: () => console.log("i am clicked"),
+        style: {
+          backgroundColor: "tomato",
+        },
+      },
+      "Click Me!"
+    );
+    const container = React.createElement("div", null, [h3, btn]);
+    // ReactDOM.render(h3, root); //root 안에 h3을 넣어다오.
+    ReactDOM.render(container, root); //여러개를 싣고 싶으면 이전에 미리 다 합쳐둬라.
+  </script>
 </html>

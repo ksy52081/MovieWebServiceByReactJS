@@ -43,3 +43,21 @@ vanilla에서는 HTML을 만들고 -> JS에 가져와서 -> HTML을 수정하는
 ReactJS에서는 모든것이 JS로 시작한 후 html이 되는것 (생성, 수정, 업데이트 등등) 
 생성, 수정, 렌더링도 모두 ReactJS에서 이루어지기에 
 업데이트 해야하는 HTML을 업데이트 하도록 JS 쪽에서 컨트롤 할 수 있다는 점이 중요
+
+#2.3
+
+
+React.createElement("",{}, )의 두번째 변수에
+classname id와 같은 property가 들어가기도 하지만
+eventlistener도 들어갈 수 있다!! onClick: () => {} 함수로.
+
+vanilla JS에서는
+    <button id="btn"> Click me</button> <!--STEP1 HTML만든다-->
+    const button = document.querySelector("#btn"); //STEP2html element 찾아 js에 가져오기
+    function handleClick(){span.innerText = `Total Clicks : ${counter}`; }
+    button.addEventListener("click",handleClick)
+이렇게 네줄이 필요하던 것이
+
+ReactJS에서는
+const btn = React.createElement("button", {onclick: () => console.log("i am clicked")}, "Click Me!");
+이 한줄로 해결이 된다!
