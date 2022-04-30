@@ -61,3 +61,28 @@ vanilla JS에서는
 ReactJS에서는
 const btn = React.createElement("button", {onclick: () => console.log("i am clicked")}, "Click Me!");
 이 한줄로 해결이 된다!
+
+#2.5 
+JSX 
+JSX는 JavaScript를 확장한 문법이다
+기본적으로 우리가 한 것처럼 React 요소를 만들 수 있게 해주는데
+HTML에서 사용하는 문법과 흡사한 문법을 사용해서  
+
+Babel 은 쉬운버전 JSX를 컴퓨터가 이해할 수 있도록 JS(하드모드)로 번역시켜주는 라이브러리
+
+결국 JSX 문법은 사람이 더 쉽게 작성하기 위해 쓰이는 거지
+결국 JSX 로 작성한 코드는 babel을 통해 다시 JS 문법 ~ Reactjs 하드모드 문법으로 번역한 다음
+ReactJS / ReactJSDOM 으로 렌더링 하는거다.
+
+JSX – 자바스크립트를 확장한 문법
+보통의 HTML과 비슷. 그러나 property를 HTML 태그의 속성처럼 적으면 됨
+const Title = (
+console.log("mouse enter")}>
+Hello I'm a span
+);
+style={{ backgroundColor: "tomato" }} -> 스타일은 {} 2개임
+JSX를 브라우저가 온전히 이해하지 못하므로 이해할 수 있게
+https://unpkg.com/@babel/standalone/babel.min.js 를 설치해야함
+-> JSX로 적은 코드를 브라우저가 이해할 수 있는 형태로 바꿔줌
+바벨을 가져온 뒤 script type="text/babel"로 적어줘야 인식함
+
