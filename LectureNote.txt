@@ -86,3 +86,50 @@ https://unpkg.com/@babel/standalone/babel.min.js 를 설치해야함
 -> JSX로 적은 코드를 브라우저가 이해할 수 있는 형태로 바꿔줌
 바벨을 가져온 뒤 script type="text/babel"로 적어줘야 인식함
 
+
+
+#2.6 
+액션까지 낭낭하게 넣어둔 element를 rendering 하기 위해서 
+ ReactJS 하드모드에서는 
+ const container = React.createElement("div", null, [h3, btn]);
+ 를 썼다.
+
+ const container = <div> h3 btn </div>
+ 그냥 이렇게만 하면 "h3 btn" 이라는 글자만 출력될 뿐이다.
+
+ 그냥 텍스트가 아니라 요인을 집어넣고 싶으면
+ 요인이 그냥 Object가 아닌
+    const h3 = (
+      <h3 id="h3" onMouseEnter={() => console.log("mouse Entered")}>
+        Hello, i am a h3
+      </h3>
+    );
+
+함수형으로 정의해야 한다.
+arrowfunction으로 아래처럼 하던가
+    const h3 = () => (
+      <h3 id="h3" onMouseEnter={() => console.log("mouse Entered")}>
+        Hello, i am a h3
+      </h3>
+    );
+
+그냥 일반 함수 정의로 아래처럼 해야한다.
+    function h3() {
+            return(
+        <h3 id="h3" onMouseEnter={() => console.log("mouse Entered")}>
+            Hello, i am a h3
+        </h3>
+        );
+    }
+
+element들을 함수화 했다면, 
+ const container = <div> H3 Btn </div>
+ 를
+ const Contianer = <div> <H3 /> <Btn /> </div>
+로 작성한다.
+
+※ 주의점 
+JSX에서 함수형으로 정의된 element는 첫글자 대문자로 정의내려라
+그렇지 않으면, <Button /> 이 아닌 <button /> 로 작성하면
+우리가 정의내린 element인지, 아니면 html 기본 element를 가져다 쓴건지 구별을 못한다.
+

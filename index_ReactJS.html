@@ -8,12 +8,14 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.querySelector("#root");
-    const h3 = (
-      <h3 id="h3" onMouseEnter={() => console.log("mouse Entered")}>
-        Hello, i am a h3
-      </h3>
-    );
-    const btn = (
+    function H3() {
+      return (
+        <h3 id="h3" onMouseEnter={() => console.log("mouse Entered")}>
+          Hello, i am a h3
+        </h3>
+      );
+    }
+    const Btn = () => (
       <button
         style={{
           backgroundColor: "tomato",
@@ -23,8 +25,14 @@
         Click Me!
       </button>
     );
-    const container = React.createElement("div", null, [h3, btn]);
+    const Container = () => (
+      <div>
+        <H3 />
+        <Btn />
+      </div>
+    );
+    // const container = React.createElement("div", null, [h3, btn]);
     // ReactDOM.render(h3, root); //root 안에 h3을 넣어다오.
-    ReactDOM.render(container, root); //여러개를 싣고 싶으면 이전에 미리 다 합쳐둬라.
+    ReactDOM.render(<Container />, root); //Continer도 함수로 만들어서 < /> 꼴로 집어넣으면 render도 가능
   </script>
 </html>
