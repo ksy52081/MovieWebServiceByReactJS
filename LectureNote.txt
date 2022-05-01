@@ -243,3 +243,26 @@ f는 set 뒤에 데이터 이름을 붙임 (setCounter)
 3. 버튼이 클릭되면 counter값을 바꿔줄 함수 호출 -> setCounter
 4. counter의 새로운 값을 가지고 counter 함수를 호출
 5. 그 새로운 값은 setCounter(counter + 1)에 써준 counter + 1
+
+
+#3.4
+
+const [x, setX] = React.useState();
+에서 
+setX( x ~~~~) ; 이런 식은 권장하지 않는다.
+왜냐면 x가 다른 곳에서 update 될 수도 있기 때문
+어쩌면 x가 다른 곳에서 변경되어서 우리가 생각하는 값이 아닐 수도 있다 ☆☆☆☆
+단순한 구조에서는 이러한 오류를 시현하기 어렵지만
+
+
+
+state를 바꾸는 2가지 방법이 있다
+방법1) setX( 15 ) setX를 이용해서 우리가 원하는 값(숫자 / 문자 등등)을 넣어주는 것.
+방법2) setX( x ~) 이전 값을 이용해서 현재 값을 계산해내는 방법
+
+
+setCounter(counter + 1);
+함수의 꼴로 넣어주는게 더 적합하다
+여기서 함수형으로 만들어두면, 변수는 무조건 최근에 업데이트된 변수(본 예시에서는 counter)를 넣어준다.
+setCounter((current) => current + 1); // 이 방식이 더올바른 방식이다. 
+setCounter 안에 정의된 함수에서 인자는 무조건 counter이다. ★★★★

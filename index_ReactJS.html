@@ -12,7 +12,8 @@
       //   const [counter, modifier] = React.useState(0); //
       const [counter, setCounter] = React.useState(0); //
       const onClick = () => {
-        setCounter(counter + 1);
+        // setCounter(counter + 1);
+        setCounter((X) => X + 1); // 이 방식이 더올바른 방식이다.
       };
       console.log("rendered");
       console.log(counter);
