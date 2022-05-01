@@ -203,3 +203,43 @@ const [favFood, terFood] = food;
 
 3) 더더 깔끔한 방법 
 const [favFood, terFood] = ["tomato", "potato"]
+
+#3.2 
+
+왜 react.useState 속 modifier가 필요할까?
+ 3.0에서 겪었듯이, 함수로 아무리 value를 변화해도
+ 함수 끝마다 ReactDOM.render() 해주지 않으면 화면에 변화가 반영되지 않는다. ~ 매번 같은 코드를 반복하는건 비효율!
+
+ modifier는 어떤 값을 부여하던 그 갚으로 업데이트 하고 리렌더링을 해준다.
+
+ [state, setState] = React.useState( 기본값);
+
+    const action = () => {
+    setState(state + 1);
+    }; //setState 에다 원하는 함수 output을 넣으면, 업데이트되고, 리렌더링까지 해준다.
+
+    return (
+    <div>
+        <h3> Total Click : {state} </h3>
+        <button onClick={action}> Click Me!</button>
+    </div>
+    ); // 화면에 출력할 친구들
+}
+ReactDOM.render(<App />, root);
+
+구조를 가지면 된다.
+
+modifier 함수로 state가 바뀔때, 
+해당하는 app() 함수 코드 전체가 가동되고
+return 안에 있는 컴포넌트 전체도 재생성 된다 (새로 업데이트된 값과 함께)
+그 와중에 똑똑하게, 바뀐 부분만 다시 만든다.
+
+React.useState() 배열에서
+보통 데이터에는 counter처럼 원하는대로 붙이고
+f는 set 뒤에 데이터 이름을 붙임 (setCounter)
+어떤값을 부여하던 setCounter 함수는 그 값으로 업데이트하고 리렌더링 일으킴
+1. counter라는 데이터를 받음
+2. return()에 그 데이터를 담고 있음 (리턴은 사용자가 보게될 컴포넌트)
+3. 버튼이 클릭되면 counter값을 바꿔줄 함수 호출 -> setCounter
+4. counter의 새로운 값을 가지고 counter 함수를 호출
+5. 그 새로운 값은 setCounter(counter + 1)에 써준 counter + 1
