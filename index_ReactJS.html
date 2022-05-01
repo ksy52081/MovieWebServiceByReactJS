@@ -8,31 +8,22 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.querySelector("#root");
-    function H3() {
-      return (
-        <h3 id="h3" onMouseEnter={() => console.log("mouse Entered")}>
-          Hello, i am a h3
-        </h3>
-      );
+    let counter = 0;
+    function countUp() {
+      counter = counter + 1;
+      render();
+      // 백날 값을 바꾼들 무슨 소용이람, 변화된 값들을 렌더링 하지 않으면 화면에는 반영되지 않는다.
     }
-    const Btn = () => (
-      <button
-        style={{
-          backgroundColor: "tomato",
-        }}
-        onClick={() => console.log("i am clicked")}
-      >
-        Click Me!
-      </button>
-    );
+    function render() {
+      ReactDOM.render(<Container />, root);
+    }
+
     const Container = () => (
       <div>
-        <H3 />
-        <Btn />
+        <h3> Total Click : {counter} </h3>
+        <button onClick={countUp}> Click Me!</button>
       </div>
     );
-    // const container = React.createElement("div", null, [h3, btn]);
-    // ReactDOM.render(h3, root); //root 안에 h3을 넣어다오.
-    ReactDOM.render(<Container />, root); //Continer도 함수로 만들어서 < /> 꼴로 집어넣으면 render도 가능
+    render();
   </script>
 </html>
