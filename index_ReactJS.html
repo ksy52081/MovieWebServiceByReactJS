@@ -8,22 +8,16 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.querySelector("#root");
-    let counter = 0;
-    function countUp() {
-      counter = counter + 1;
-      render();
-      // 백날 값을 바꾼들 무슨 소용이람, 변화된 값들을 렌더링 하지 않으면 화면에는 반영되지 않는다.
+    function App() {
+      const [counter, modifier] = React.useState(0); //
+      console.log(data);
+      return (
+        <div>
+          <h3> Total Click : 0 </h3>
+          <button> Click Me!</button>
+        </div>
+      );
     }
-    function render() {
-      ReactDOM.render(<Container />, root);
-    }
-
-    const Container = () => (
-      <div>
-        <h3> Total Click : {counter} </h3>
-        <button onClick={countUp}> Click Me!</button>
-      </div>
-    );
-    render();
+    ReactDOM.render(<App />, root);
   </script>
 </html>

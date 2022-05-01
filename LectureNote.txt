@@ -168,3 +168,38 @@ reactjs는 변환하는 counter 변수 값 하나만 업데이트 되는 것을 
 button / title/ h3 등 변화하지 않는것을 모두 새로고침할 필요 없이 바뀐 부분만 업데이트 해주는 것은
 엄청난 양의 연산 낭비를 막아준다.
 
+1. element에 변수를 넣고 싶으면 {변수} 만 추가하면 끝.
+2. 바뀐 값에 따라 ui를 업데이트 하고 싶으면 ReactDOM.render() 함수를 사용하면 된다
+3. ReactDOM.render() 로 업데이트 하더라도, 전체를 새로 다 불러오는 것이 아닌, 바뀐 부분만 찾아서 업데이트 해준다.
+
+BUT... 매번 함수로 변수 값이 바뀔때마다 ReactDOM.render() 함수를 추가하는 것은 비효율이다.
+
+
+const data = React.useState( defaultValue ); 
+로 정의한 data를 열어보면
+[defaultValue, f] 를 가진 array임을 알 수 있다.
+앞부분은 우리가 다룰 데이터가 들어가고
+뒷부부은 관련된 함수로 구성되어 있음
+
+즉 
+const data = React.useState( defaultValue ) 꼴은
+와
+
+let counter = 0;
+function counterUp(){
+    //code
+}
+는 같은 의미를 가진다.
+
+※ array 속에 있는 것들을 불러오는 방법
+1) 기존의 방법
+const food = ["tomato", "potato"]
+const favFood = food[0];
+const terFood = food[1];
+
+2) 더 깔끔한 방법
+const food = ["tomato", "potato"]
+const [favFood, terFood] = food;
+
+3) 더더 깔끔한 방법 
+const [favFood, terFood] = ["tomato", "potato"]
