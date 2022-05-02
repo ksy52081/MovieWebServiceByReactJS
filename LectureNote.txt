@@ -311,3 +311,31 @@ fistargument는 단순한 변수명이고, ( ) 안에 ,로 구분된 몇번째 �
 어떤 특성값이 자동으로 할당된다라는 설명이 동영상내에 있으니
 참조하시면 될 것 같습니다.
 
+#3.5 
+unit convert application 시간-분 원-달러
+
+<label> = input 옆에 써주는 글씨 ~ 누군가 이글씨를 누르면 그 옆 input이선택됨
+<label for = {연결할 id}
+<label htmlFor = {연결할 id}
+
+react, reactdom을 import하는 script tag에서
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+production - > development 로 변경하는데
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+production은 배포 모드, development는 개발 모드를 의미합니다.
+개발모드는 니코쌤이 보여준 것 처럼 버그로 이어질 수 있는 요소들을 미리 경고하는 검증 코드가 포함되어 있습니다.
+
+하.지.만 JSX는 html과 다르다.
+html에서는 for, class 같은 단어가 문제가 없지만
+JS. JSX 와 같은데서는 혼란을 줄 여지가 매우 크다.
+
+class 대신 className을 쓰며
+for 대신 htmlFor 를 써야 한다.
+
+
+※react 세상에선 
+우리가 직접 입력하는 값들을 uncontrolled value 라고 부른다.
+
+글자를 쓸 때마다 input 속에 들어가 있는 값들을 minutes 에 반영하고 싶을때
