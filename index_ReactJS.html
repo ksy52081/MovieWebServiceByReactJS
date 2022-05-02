@@ -9,18 +9,34 @@
   <script type="text/babel">
     const root = document.querySelector("#root");
     function App() {
-      //   const [counter, modifier] = React.useState(0); //
-      const [counter, setCounter] = React.useState(0); //
-      const onClick = () => {
-        // setCounter(counter + 1);
-        setCounter((X) => X + 1); // 이 방식이 더올바른 방식이다.
-      };
-      console.log("rendered");
-      console.log(counter);
+      const [minutes, setMinutes] = React.useState(0);
+      const onChange = () => {
+        setMinutes(event.target.value);
+      }
+      const reset = () => {
+        setMinutes(0);
+      }
       return (
         <div>
-          <h3> Total Click : {counter} </h3>
-          <button onClick={onClick}> Click Me!</button>
+          <h1> super Converter </h1>
+          <label htmlFor = "minutes">Minutes</label>
+          <input 
+          id = "minutes" 
+          value={minutes}
+          placeholder="Minutes" 
+          type="number" 
+          onChange={onChange}
+          />
+          <h4> You Want to convert {minutes}</h4>
+          <label htmlFor="hours">Hours</label>
+          <input 
+          id="hours"
+          value={Math.round(minutes/60)}
+          placeholder = "Hours"
+          type="number"
+          disabled
+          />
+          <button onClick={reset}>Reset</button>
         </div>
       );
     }
