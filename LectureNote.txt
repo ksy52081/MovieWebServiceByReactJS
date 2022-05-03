@@ -377,3 +377,68 @@ arrow 쓸 때 한 줄로만 나타낼 수 있으면 {} 생략할 수 있습니�
 앞 선 강의에서도 나왔겠지만 함수 내용이 여러 줄일 경우 {}로 묶어주고
 리턴되는 내용은 ()로 묶어서 나타낼 수 있습니다.
 
+
+#3.7
+
+fliped 변수 = boolean이다.
+
+id = "hours"인 <input> 은 disabled = {true}가 기본값이다.
+즉, fliped가 false 일때 disabled = true가 되어야 한다.
+true = {fliped === false} 면 해결
+
+
+
+
+flip
+const onFlip = () => setFlipped(!flipped);
+-> flipped가 true라면 부정명제인 !flipped는 false
+-> false라면 true
+
+state값으로 input을 enabled할지 disabled 할지를 결정할 수 있음
+
+디폴트 값이 false 라고 정했으므로 Hours는 disabled 되어야함
+그래서 disabled={flipped === false}를 써줘서
+flipped가 false라면, disabled는 true가 되도록 만들어줌
+Minuets에는 반대로
+disabled={flipped === true}라고 써줌
+그러나
+Hours는
+disabled={!flipped}
+Minuets에는 반대로
+disabled={flipped}
+주는게 더 짧고 좋음
+
+시간 -> 분 컨버터
+삼항연산자(ternary operator) 사용하기
+flipped ? amount : amount / 60
+-> 만약 flipped 상태면 state에 있는 값을 그대로 보여주기
+아니라면 60으로 나눈 변환된 값 보여주기
+value={flipped ? amount * 60 : amount}
+-> 만약 flipped 상태면 60으로 곱한 변환된 값 보여주기
+아니라면 state에 있는 값을 그대로 보여주기
+
+flip누르면 변화된 값 그대로 가져오므로
+onFlip 변수에 reset(); 넣어주기
+
+
+문제는~~ 내가 hours input에 뭐라고 써넣든
+value는 항상 math.round(minutes/60) 을 따라갈 것이다.
+이것은 우리가 원하는 방향이 아니다
+내강 원하는 건 변환없이 내가 쓴 value를 그대로 보여주고 싶은 것이다.
+
+math.round(minutes/60)의 변환 공식의 적용은
+내가 minutes input에 썼을 때만 일어나야만 한다.
+
+여기에 이미 우리는 
+변환공식{math.round(minutes/60)}과
+스위치 조건 (fliped)를
+모두 가지고 있다
+
+여기서 우리는 삼항연산자(ternary operator)로 바꿔주겠다
+인라인 if문이라고 보면 된다
+{조건문 ? 참일경우 : 거짓일경우}
+로 구성된다.
+
+헷갈리니까 minute, setMinutes는 
+amount, setAmount로 변형하자.
+
