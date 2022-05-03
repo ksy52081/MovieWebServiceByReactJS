@@ -665,3 +665,33 @@ Btn onClick={changeValue} /> 이것은 이벤트 리스너를 붙인 것이 아�
 리액트의 렌더링방식 (6:18)
 
 불필요한 리렌더링을 MEMO로 막기 (8:40)
+
+#4.2 
+사실 1) Props Type
+
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+를 추가하면
+
+Btn.propTypes = {
+    text : propTypes.string.isRequired,
+    fontSize : propTypes.number, 
+}
+와 같은 방식으로 prop의 타입을 제한할 수 있다.
+
+사실 2) 커스텀 컴포넌트의 기본값
+ function Btn({text, big = true, fontSize=14 }) {}
+
+ 와 같이 컴포넌트 안의 prop 값 = XXX 를 넣으면
+ 만일 컴포넌트를 불러올때 prop이 누락되어있다면 기본값인 XXX를 가져와 씁니다.
+
+수강생 노트 1)
+https://unpkg.com/prop-types@15.7.2/prop-types.js
+그리고 propType이 적용 안되시는 분들은
+https://unpkg.com/react@17.0.2/umd/react.production.min.js ->
+https://unpkg.com/react@17.0.2/umd/react.development.js 로 변경해주세요.
+
+수강생 노트 2) 
+이전강의 memo와 같이사용 하면 반응하지않습니다.
+MemorizedBtn 지우고 Btn 으로 이름바꿔서 다시 링크해야합니다
+/ MemorizedBtn = React.memo(Btn) 아래쪽으로 MemorizedBtn.propTypes ={
+사용하셔도 됩니다.

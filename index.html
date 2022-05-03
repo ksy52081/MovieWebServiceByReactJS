@@ -3,9 +3,10 @@
   <body>
     <div id="root"></div>
   </body>
-  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script type="text/babel">
     function Btn({text, big, onClickProp}) {
         // console.log(text, big)
@@ -25,19 +26,30 @@
             </button>
         );
     }
-    const MemorizedBtn = React.memo(Btn)
+    // const MemorizedBtn = React.memo(Btn)
+
+    Btn.propTypes = {
+        text : PropTypes.string.isRequired,
+        fontSize : PropTypes.number, 
+    }
 
     function App() {
         const [value, setValue] = React.useState("Save Changes")
         const changeValue = () => {
              setValue("Revert Changes")
         }
-      return (
+        return (
         <div>
-            <MemorizedBtn text = {value} onClickProp={changeValue} big = {true} /> 
-            <MemorizedBtn text = "confirm Button" big = {false}/>
+            <Btn text = {value} fontSize = {18} onClickProp={changeValue} big = {true} /> 
+            <Btn text = {14} fontSize={"Continue"} big = {false}/>
         </div>
-      );
+        );  
+    //   return (
+    //     <div>
+    //          <MemorizedBtn text = {value} onClickProp={changeValue} big = {true} /> 
+    //          <MemorizedBtn text = "confirm Button" big = {false}/>
+    //     </div>
+    //   );
     }
 
 
