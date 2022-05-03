@@ -695,3 +695,80 @@ https://unpkg.com/react@17.0.2/umd/react.development.js 로 변경해주세요.
 MemorizedBtn 지우고 Btn 으로 이름바꿔서 다시 링크해야합니다
 / MemorizedBtn = React.memo(Btn) 아래쪽으로 MemorizedBtn.propTypes ={
 사용하셔도 됩니다.
+
+
+#5.0
+create-react-app
+Node js 설치하기
+터미널에서 node -v로 설치 확인
+npx
+
+src 폴더는 모든 파일을 넣을 장소
+index.js가 가장 익숙한 것
+
+create-react-app의 장점중 한가지
+auto-reload이다. 몇가지를 바꾸고 저장하면
+
+
+Q1 could not determine excutable to run 에러
+https://velog.io/@gonkang_jeondosa/TS-React-CRA%EC%84%A4%EC%B9%98%EC%A4%91-%EB%B0%9C%EC%83%9D%ED%95%98%EB%8A%94-%EC%97%90%EB%9F%ACnpm-ERR-could-not-determine-executable-to-run
+ 
+npx create-react-app 경로명
+
+수강생 노트1)
+node.js를 설치할 수 없는 환경인 분들은 https://ide.goorm.io/ 또는 https://codesandbox.io/에서 수강하시는게 편할거 같습니다! 시간 나면 사용법도 정리해서 올려볼게요. 그리고 써보면서 불편한 점 생기면 다른 IDE도 알아볼게요!
+
+수강생 노트2)
+npx 치자마자 로그를 확인하라고 떠서 .. 아래 주소보고 따라했습니다.
+https://stackoverflow.com/questions/53657920/i-cant-install-react-using-npx-create-react-app
+npm 버전에 따라 조금 다른거 같은데 참고하면 좋을것 같아요
+
+수강생 노트3)
+NodeJS를 LTS버전으로 설치하면 다음과 같은 오류 메세지가 발생합니다
+
+A template was not provided. This is likely because you're using an outdated version of create-react-app.
+Please note that global installs of create-react-app are no longer supported.
+You can fix this by running npm uninstall -g create-react-app or yarn global remove create-react-app before using create-react-app again.
+
+그러나 최신 버전으로 설치 후 명령어 입력하니 정상적으로 실행되는 것 확인하였습니다
+
+수강생 노트4) 
+command not found: code 뜨시는 분들은 이렇게 해보세요
+
+1. 비주얼 스튜디오를 킨다
+2. command + P를 누른다.
+3. >shell command: Install 'code' command in PATH** command.를 선택해서 설치를 진행한다.
+
+
+수강생 노트5)
+React 프로젝트 초기화 (Create React App)
+
+빌드 구성 없이 React 앱을 만듭니다.
+npx create-react-app my-app
+
+You are running `create-react-app` 4.0.3, which is behind the latest release (5.0.0). 오류 뜨시는 분들은
+npx create-react-app@5.0.0 my-app으로 진행하시면 됩니다.
+
+https://github.com/facebook/create-react-app
+
+수강생 노트6)
+[[[[[[ 방금 React-app 설치하신 분들 필독!!!! ]]]]]]
+
+React-app이 업데이트 되면서 영상 속 내용과 차이점이 생겼습니다.
+ReactDOM.render 구문이 폐기되고 ReactDOM.createRoot 구문으로 대체되었어요.
+제가 방금 설치하고 니꼬샘 따라 필요없는 부분 지운 index.js 코드는 아래와 같아요.
+차후 강의 내용 따라갈 때 문제가 생길지는 모르겠지만 일단 공유해드려요
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+★React.StrictMode★
+★App /★
+★/React.StrictMode★
+);
+
+댓글에 꺽쇠괄호 입력하면 출력이 안되서 ★로 치환했습니다. 참고해주세요.
+
