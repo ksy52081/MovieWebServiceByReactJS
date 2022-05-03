@@ -701,10 +701,13 @@ MemorizedBtn 지우고 Btn 으로 이름바꿔서 다시 링크해야합니다
 create-react-app
 Node js 설치하기
 터미널에서 node -v로 설치 확인
-npx
+npx install
 
 src 폴더는 모든 파일을 넣을 장소
 index.js가 가장 익숙한 것
+
+무사히 설치되면 npm start 터미널에 입력하면 자동으로 웹페이지가 뜬다.
+참조 : package.json 을 열어보면 npm start / build / test /eject 사용에 대한 내용이 담겨있다.
 
 create-react-app의 장점중 한가지
 auto-reload이다. 몇가지를 바꾸고 저장하면
@@ -772,3 +775,5 @@ root.render(
 
 댓글에 꺽쇠괄호 입력하면 출력이 안되서 ★로 치환했습니다. 참고해주세요.
 
+※ node.js에서 수행하기 때문에 파일을 각각 분리하는게 가능하고 좀더 조직적으로 구성할 수 있다.
+※ test code도 기초에서는 필요 없기 때문에 제거
