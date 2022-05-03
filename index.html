@@ -7,49 +7,12 @@
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    // function saveBtn() {
-    //     return(
-    //         <button
-    //         style = {{
-    //             backgroundColor : "tomato",
-    //             color : "white",
-    //             padding : "10px, 20px" ,
-    //             border : 0 ,
-    //             borderRadious : 10,
-    //         }}
-    //         >Save Button
-    //         </button>
-    //     );
-    // }
-    // function confirmBtn() {
-    //     return(
-    //         <button
-    //         style = {{
-    //             backgroundColor : "tomato",
-    //             color : "white",
-    //             padding : "10px, 20px" ,
-    //             border : 0 ,
-    //             borderRadious : 10,
-    //         }}
-    //         >confirm Button
-    //         </button>
-    //     );
-    // }
-    // function App() {
-    //   return (
-    //     <div>
-    //         <saveBtn />
-    //         <confirmBtn />
-    //     </div>
-    //   );
-    // }
-
-// /////////////////////////////////////////////////
-
-    function Btn({banana, big}) {
-        console.log(banana, big)
+    function Btn({text, big, onClickProp}) {
+        // console.log(text, big)
+        console.log(text, "was rendered")
         return(
             <button
+            onClick = {onClickProp}
             style = {{
                 backgroundColor : "tomato",
                 color : "white",
@@ -58,24 +21,21 @@
                 borderRadious : 10,
                 fontSize : big ? 18 : 16,
             }}
-            >{banana}
+            >{text}
             </button>
         );
     }
-
-    // function Btn2(props) {
-    //     <button
-    //     //~~~~~~~~~~~
-    //     >
-    //     {props.banana}
-    //     </button>
-    // }
+    const MemorizedBtn = React.memo(Btn)
 
     function App() {
+        const [value, setValue] = React.useState("Save Changes")
+        const changeValue = () => {
+             setValue("Revert Changes")
+        }
       return (
         <div>
-            <Btn banana = "Save Button" big = {true} />
-            <Btn banana = "confirm Button"/>
+            <MemorizedBtn text = {value} onClickProp={changeValue} big = {true} /> 
+            <MemorizedBtn text = "confirm Button" big = {false}/>
         </div>
       );
     }

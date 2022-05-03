@@ -548,3 +548,120 @@ function Btn({banana}){
         </div>
       );
     }
+
+
+#4.1 
+부모 컴포넌트가 state를 변경할 때 어떤 일이 일어나나?
+다른 컴포넌트 / 자식 컴포넌트에게 어떤 일이 일어나나?
+
+
+
+    function App() {
+        const [value, setValue] = React.useState("Save Changes")
+        const changeValue = () => {
+             setValue("Revert Changes")
+        }
+      return (
+        <div>
+            <Btn text = {value} onClick={changeValue} big = {true} />  /////
+            <Btn text = "confirm Button" big = {false}/>
+        </div>
+      );
+    }
+
+    와 같은 꼴일 때 onClick={changeValue}는 eventListener가 아니라(?!?!) 아들 컴포넌트인 Btn으로 들어가는 prop이다.!
+
+    ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
+    ※ 내가 Btn 엘레멘트 함수 속
+    <button
+        onClick = {~~~}
+        >
+    처럼 HTML element 안에 onClick을 넣는다면 이벤트 리스너이지만,
+
+    하지만 나의 커스텀 컴포넌트에다가
+    <Btn text={value} onClickP={changeValue} /> 
+    처럼 넣는다면, 이것은 이벤트 리스너가 아니라
+    onClickP이라는 (=banana여도 전혀 상관 없음) prop의 key 중 하나에 불과하다.
+
+    <Btn style={{color : "green"}} text={value}  /> 
+    이라고 백날 쳐봐도 Btn 컴포넌트의 색깔이 자동으로 초록색으로 변하는건 아무것도 없다.
+    
+    즉 onClickP이라는 키값을 가지는 prop을 가져와서
+    const Btn ({text, onClickP}){ //이라고 직접 prop을 가져오고
+        onClick={onClickP} // 형태로 직접 넣어야 한다.  
+    }
+    //아, 그리고 prop 입력 대상이 숫자, 문자 뿐만 아니라 함수도 가능하다 위의 예시가 그거다.
+    ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
+
+
+    버튼을 클릭하면
+    btn 컴포넌트 속 
+    onClick={onClickProp} 이 불려와짐
+    onClickProp 은 App() 컴포넌트 속
+    <Btn text={value} onClickProp={changeValue} />
+    changeValue를 호출함
+    changeValue라는 함수 속에서 
+    setValue로 인해 value가 업데이트 됨과 동시에 render를 다시 수행한다
+    render를 다시 수행하면 return() 속에 있는 모든 엘레멘트들이 다시 돌면서 렌더링이 일어난다.
+    
+
+    ※근데.....
+    App() 속에 두개의 <Btn /> <Btn /> 이 있고
+    그중에 하나만 바뀌는데
+    Btn 둘다 리렌더링 되어버린다.
+
+    부모가 state를 변경하고 있고 변경함과 함께 모든게 다시 그려진다 
+    React Memo 라고 불리는 걸 할 수 있다.
+    우리는 props가 변경되지 않는 특정 컴포넌트는 굳이 다시 그려지는걸 원하지 않는다고
+
+    우리는 이 컴포넌트를 다시 그릴지 말지를 결정할 수 있다.
+
+    많이 쓰지는 않지만/ 리액트에는 React.memo()라는 특성이 있음을 알고는 있어라.
+
+    커스텀 컴포넌트에 
+    function Btn({text, big, onClickProp}) {~~~~~}
+    
+    아래와 같이 React.memo() 함수를 거쳐가게 한 후
+    const MemorizedBtn = React.memo(Btn)
+
+    <Btn /> 을     <MemorizedBtn /> 으로 전환해놓으면
+    전환된 컴포넌트는 변화할때마다 항상 리렌더링 되지 않고
+    "컴포넌트와 연관된 변화가 있을 때에만" 리렌더링을 수행한다.
+
+
+정리 1) 
+1. props에 function도 보낼 수 있음
+이것은 JSX로 html 태그 자체에 이벤트 리스너를 넣는것과는 전혀 다른 것임.
+그저 이벤트를 실행시키는 함수가 프로퍼티로 들어간 것임.
+prop은 그냥 부모에서 자식으로 데이터를 넘길 때 사용하는 argument의 역할이니까!
+
+2. (07:41~) 부모의 상태를 바꾸는 함수를 만들었고, 부모 컴포넌트에서 그 함수를 prop으로 보내면 자식 컴포넌트에서 그 함수가 실행된다.
+
+3. 불필요한 re-render는 React.memo()로 관리할 수 있음
+부모 컴포넌트의 state를 변경하면 당연히 그 자식 컴포넌트들도 Re-render가 일어남. 불필요한 렌더링이 발생할 수도 있는데, 이 경우에는 React.memo()로 prop의 변경이 일어난 부분만 렌더링 시킬 수 있음. 아주 많은 자식 컴포넌트를 가지고 있는 부모 컴포넌트일 때 사용하면 될듯.
+
+* React.memo()
+컴포넌트가 React.memo()로 wrapping 될 때, React는 컴포넌트를 렌더링하고 결과를 메모이징(Memoizing)한다. 그리고 다음 렌더링이 일어날 때 props가 같다면, React는 메모이징(Memoizing)된 내용을 재사용한다.
+
+
+React.memo는 고차 컴포넌트(Higher Order Component)입니다.
+컴포넌트가 동일한 props로 동일한 결과를 렌더링해낸다면, React.memo를 호출하고 결과를 메모이징(Memoizing)하도록 래핑하여 경우에 따라 성능 향상을 누릴 수 있습니다. 즉, React는 컴포넌트를 렌더링하지 않고 마지막으로 렌더링된 결과를 재사용합니다.
+```
+const MyComponent = React.memo(function MyComponent(props) {
+/* props를 사용하여 렌더링 */
+});
+```
+https://ko.reactjs.org/docs/react-api.html#reactmemo
+
+정리 2)
+[헷갈릴 수 있는 부분]
+Btn onClick={changeValue} /> 이것은 이벤트 리스너를 붙인 것이 아닌, 컴포넌트에 onClick이라는 프롭을 전달한 것이다. 여기서 onClick은 단순히 props의 이름이다. (2:07)
+
+결국 컴포넌트에 onClick 이벤트리스너를 붙이고 싶다면 해당 컴포넌트의 props으로 이벤트 리스너를 보내고, 그걸 받아오면 해당 컴포넌트의 최상단 엘리먼트에 onClick 이벤트 리스너를 붙이면 된다 (3:46)
+
+즉, 컴포넌트에는 HTML Element처럼 속성을 지정해줄 수 없다.
+컴포넌트에 그러한 행위를 하는것은 그저 props를 전달해 주는 것 뿐이다.
+
+리액트의 렌더링방식 (6:18)
+
+불필요한 리렌더링을 MEMO로 막기 (8:40)
