@@ -442,3 +442,25 @@ math.round(minutes/60)의 변환 공식의 적용은
 헷갈리니까 minute, setMinutes는 
 amount, setAmount로 변형하자.
 
+#3.9
+
+<select> 컴포넌트
+
+<select>
+    <option> Min & Hours </option> 
+    <option> KM & Miles </option> 
+</select>
+
+
+
+중괄호 {}를 쓰면 js 스크립트를 넣을 수 있다!
+
+속성으로 value 를 가질 수 있으면 onChange 속성을 붙일 수 있다.
+SELECT, OPTION에도 붙힐 수 있다 (드롭다운) 11:12 참고하자
+
+useState의 두번째 인자인 modifier함수를 실행하면 해당 컴포넌트가 리렌더링 된다.
+
+[리렌더링 조건]
+1) props이 바뀔때
+2) state가 바뀔때
+3) 부모 컴포넌트가 리렌더링 될 때
