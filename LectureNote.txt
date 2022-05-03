@@ -464,3 +464,87 @@ useState의 두번째 인자인 modifier함수를 실행하면 해당 컴포넌�
 1) props이 바뀔때
 2) state가 바뀔때
 3) 부모 컴포넌트가 리렌더링 될 때
+
+
+#4.0 props이
+props는 일종의 방식
+부모 컴포넌트로부터 자식컴포넌트에게 데이터를 보낼 수 있게 해주는 방법
+
+생성한 예시에서
+부모 컴포넌트는 <App />
+자식 컴포넌트는 <MinutesToHours /> <KmToMiles />
+
+App은 자식보다 훨씬 작을 뿐만 아니라
+자식들은 부모컴포넌트의 데이터를 필요로 하지 않는다. (독립적일 수 있다.)
+
+컴포넌트 ~ 단지 JSX를 반환하는 함수에 불과하다.
+변경사항버튼, 취소버튼, 로그인버튼, 확인버튼 등
+대부분 하나의 앱에는 모든 버튼이 통일된 모습을 가지고 있다.
+우리가 만일 리액트 컴포넌트를 재활용할 방법을 모른다면
+매 버튼마다 똑같은 코드를 여러번 작성해야한다.
+
+만일 아래처럼 매번 대동소이한 컴포넌트를 만들지 말고
+<div>
+<saveBtn />
+<confirmBtn />
+</div>
+
+공통 컴포넌트를 만든 뒤에, 원하는 부분만 수정할 순 없을까?
+<div>
+<Btn banana = "Save Changes" />
+<Btn banana = "confirm"/>
+</div>
+
+<Btn banana = "Save Changes" />
+는 
+Btn({banana:"save Changes"}) 
+와 똑같다.
+
+ReactJS는 자동으로 네가 이곳에 넣은 모든 property(prop)들을 모조리 이 오브젝트 안에 집어넣는다.
+오브젝트는 컴포넌트 함수의 첫번째 인자로 주어진다.
+
+
+function Btn(props){
+    return(
+        <div> {props.banana}</div>
+    )
+}
+
+props는 오브젝트기 때문에 우리는 {} 중괄호를 열어서 오브젝트로부터 banana를 받을 수 있다.
+
+????????????????????????????????????????????????????
+function Btn({banana}){
+    return(
+        <div> {banana}</div>
+    )
+}
+
+
+///style 안에 있는 property 에서 삼항연산자 작성할 때 중괄호/괄호 작업 안해줘도 된다.
+그냥 
+
+    function Btn({banana, big}) {
+        console.log(banana, big)
+        return(
+            <button
+            style = {{
+                backgroundColor : "tomato",
+                color : "white",
+                padding : "10px, 20px" ,
+                border : 0 ,
+                borderRadious : 10,
+                fontSize : big ? 18 : 16,  ///삼항연산자 중괄호 없어도 돌아감
+            }}
+            >{banana}
+            </button>
+        );
+    }
+
+    function App() {
+      return (
+        <div>
+            <Btn banana = "Save Button" big = {true} />
+            <Btn banana = "confirm Button"/>
+        </div>
+      );
+    }
