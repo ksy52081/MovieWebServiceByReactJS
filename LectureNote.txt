@@ -861,3 +861,20 @@ styles가 css 코드를 가지고 있는 객체로 넘어옴
 CRA에서 동작을 위한(적용을 위한) 규칙인가요? 아니면 단순 취향인가요?
 
 Q : We need to name it 'module' to activate the CSS Module behaviour.
+
+
+#6.0
+state & Prop
+-> Effect!!!!!
+
+
+CRA에서는 이미 React 환경 속이기에 굳이 
+React.useState() 
+를 쓸 필요 없이 그냥
+useState() 
+만 써도 된다.
+
+
+가끔은, 다시 render 될때마다 반복실행되어도 괜찮은 코드가 있을 수 있다.
+하지만 그렇지 않고 component가 처음 render 될 때만 코드가 실행되길 원할수 있다.
+첫 render 때만 실행되고, 다른 state 변화에는 실행되지 않도록 하기...
