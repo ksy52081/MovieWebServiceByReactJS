@@ -19,6 +19,21 @@ function App() {
       console.log("SEARCH FOR", keyword);
     }
   }, [keyword])
+  useEffect(()=>{
+    if (keyword !== "" && keyword.length > 5){
+    console.log("I run when keyword & counter changes");
+  }
+}, [keyword, counter])
+useEffect(()=>{
+  if (keyword !== "" && keyword.length > 5){
+  console.log("I run when keyword changes");
+}
+}, [keyword])
+useEffect(()=>{
+  if (keyword !== "" && keyword.length > 5){
+  console.log("I run when counter changes");
+}
+}, [counter])
   return (
     <div>
       <input value={keyword} onChange={onChange} type="text" placeholder="Search here..." />
