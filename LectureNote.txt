@@ -878,3 +878,40 @@ useState()
 가끔은, 다시 render 될때마다 반복실행되어도 괜찮은 코드가 있을 수 있다.
 하지만 그렇지 않고 component가 처음 render 될 때만 코드가 실행되길 원할수 있다.
 첫 render 때만 실행되고, 다른 state 변화에는 실행되지 않도록 하기...
+
+특정 상황에서만 돌아가도록 제한을 주었으면 좋겠다.
+
+useEffect(변수1, 변수2);
+
+변수1 : 네가 한번만 실행하고 싶은 코드
+변수2 : 이후 설명
+
+수강생 노트1)
+useEffect
+- 두 개의 argument를 가지는 함수
+- 첫 번째 argument는 우리가 딱 한번만 실행하고 싶은 코드
+- 두 번째는 [] 배열을 넣어줌
+-> useEffect가 컴포넌트의 첫 번째 렌더 시점에 iRunOnlyOnce 함수 호출
+그리고 상태를 변화시키면 iRunOnlyOnce는 호출되지 않음
+즉, 한번만 렌더링 됨
+단순화 하여 useEffect(() => {
+console.log("CALL THE API")
+},[]); 써도 됨
+
+수강생 노트2)
+useEffect(callback, [])
+: 대표적인 사용법 => API를 딱 한번만 호출하고 그 뒤로는 다시는 호출하기 싫은 경우
+
+수강생 노트3)
+전 console.log("i run all the time") 코드가 state가 변경될 때마다 두번 씩 실행 되는데 이건 이유가 뭘까요?
+
+수강생 노트4)
+useMemo vs useEffect 차이
+
+useMemo의 경우 "생성"함수에 관련된 기능입니다. 생성자 함수가 고비용(처리 시간이 오래 걸리는 등)인 경우 렌더링마다 계산하는 것은 처리 시간이 오래 걸리므로 값을 기억해놓고 의존성이 변경되었을 경우에만 다시 계산해주는 기능입니다.
+useEffect의 경우는 api 호출, 타이머 등 렌더링 과정에서 니코쌤이 설명해준 것처럼 한 번만 호출해도 될 기능이 렌더링마다 실행되거나, 호출과정에서 렌더링에 영향을 끼칠 수 있는 것을 모아서 따로 처리하기 위한 기능입니다.
+둘의 결정적인 차이는 useEffect는 해당 컴포넌트의 렌더링이 완료된 후에 실행되지만, useMemo는 렌더링 중에 실행되는 차이가 있다고 합니다.
+자세한 건
+https://ko.reactjs.org/docs/hooks-reference.html#useeffect
+https://ko.reactjs.org/docs/hooks-reference.html#usememo
+여기에서 읽어보시면 도움이 될 것 같네요.
