@@ -1,25 +1,33 @@
-import { func } from "prop-types";
-import {useState, useEffect} from "react";
-
-function Hello(){
-    useEffect(()=>{
-        console.log("created ! :)");
-        return( ()=> console.log("destroyed"));
-    },[])
-    return(
-        <h1>Hello</h1>
-    )
-}
+import { useState } from "react";
 
 function App() {
-    const [showing, setShowing] = useState(false);
-    const onClick = () =>{
-        setShowing((prev) => !prev);
+  [todo, setTodo] = useState("");
+  [todos.setTodos] = useState([]);
+  const onChange = (event) => {
+    setTodo(event.target.value);
+    // console.log(event.target.value);
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (todo === "") {
+      return; //만일 텅텅 비어있으면 함수를 수행하지 않겠다.
     }
-    return (
+    setTodos((currentArray) => [toDo, ...currentArray]);
+    setTodo(""); //setTodo로 todo를 빈칸으로 만들어주고, 빈칸이 되어버린 todo는 input과 연결되어있으므로, 빈칸이 출력된다.
+  };
+  return (
     <div>
-        <button onClick={onClick}>{showing ? "hide" : "Show" }</button>
-        {showing ? <Hello /> : null}
+      <h1> My to dos ({todos.length}) </h1>
+      <form onsubmit={onSubmit}>
+        <input
+          onChange={onChange}
+          value={todo}
+          type="text"
+          placeholeder="Write your To-do"
+        ></input>
+        <button onClick={onSubmit}> Add ToDO </button>
+      </form>
     </div>
   );
 }
