@@ -28,6 +28,12 @@ function App() {
         ></input>
         <button onClick={onSubmit}> Add ToDO </button>
       </form>
+      <hr />
+      <ul>
+        {todos.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
     </div>
   );
 }

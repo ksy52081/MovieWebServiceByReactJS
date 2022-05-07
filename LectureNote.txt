@@ -1086,3 +1086,151 @@ console.log(toDo) // 이 부분 질문 있습니다
 
 
 
+
+수강생 노트3)
+Q1 toDos를 console에 찍어볼때 onSubmit 함수안에서 찍으면 해당 toDo가 빠진상태로 출력이 되고 다음에 다시 서브밑할시에 나오는데 왜 그러는지 이해를 못하겠습니다...ㅠ
+
+A1
+
+비동기여서는 아닌 것 같고, 컴포넌트가 렌더링 될때 이전값을 기준으로 갖고서 판단되기 때문인 것 같습니다.
+자세한 내용은 https://simsimjae.tistory.com/401?category=384814 실제로 state에서 아무리 해결해보려해도 안돼서, useRef이라는 훅을 사용해서 구현 해봤습니다.
+
+function App() {
+const [toDo, setToDo] = useState('');
+const [toDos, setToDos] = useState([]);
+const latestToDos = useRef(toDos);
+
+const onChange = (e) => setToDo(e.target.value);
+const onSubmit = (e) => {
+latestToDos.current.push(toDo);
+
+e.preventDefault();
+if (toDo === '') {
+return;
+}
+
+setToDos(latestToDos.current);
+setToDo('');
+
+console.log(latestToDos.current);
+};
+
+return ...
+}
+
+
+
+A2
+비동기여서도 맞고, 이전 값을 기준으로 판단되기 때문도 맞습니다. 아래 내용은 stackoverflow에 올라온 내용입니다(https://stackoverflow.com/questions/36085726/why-is-setstate-in-reactjs-async-instead-of-sync).
+
+setState() does not immediately mutate this.state but creates a pending state transition. Accessing this.state after calling this method can potentially return the existing value. There is no guarantee of synchronous operation of calls to setState and calls may be batched for performance gains.
+
+함수 안에 내용물을 넣어뒀을 때, setState가 동기적으로 그 값을 반영한다는 guarantee가 없다는 답변입니다. pending 상태에 있기 때문에 적어도 해당 렌더링 과정에서는 결과값이 반영될 수도, 그러지 않을 수도 있는 것이죠
+
+
+A3
+아주 간단하게 해결할 수 있습니다.
+setToDos((currentArray) => {
+const newArray = [toDo, ...currentArray];
+console.log(newArray);
+return newArray;
+});
+
+
+
+#7.1
+
+todos 리스트 array가 있을때
+리스트 속 아이템 하나 하나 각각을 component로 만들고 싶다.
+어떻게 할까?
+
+.map() 함수
+
+.map() 은  input에 함수 X()를 넣는다. .map(item, index,)
+들어간 함수X()는 array의 모든 item에 독립적으로 시행된다.
+X() 속에 들어가는 첫번째 argument는 진행되고 있는 array의 순서에 맞는 item 들이다.
+X() 속에 들어가는 두번째 argument는 index이다.
+
+["i", "am", "you", "are", "he", "is"].map((x)=>x.toUpperCase())
+>["I", "AM", "YOU", "ARE", "HE", "IS"]
+
+
+return 값은 새로운 array에 들어가 있다.
+
+
+※ 같은 컴포넌트의 리스트를 render 할 때에는 key라는 prop을 추가해 구별할 수 있도록 해야한다.
+
+
+
+수강생 노트 1)
+Todos 삭제기능 연습
+
+localstorage를 활용하지 않으므로 간단히 부모요소를 찾아 없애주면 된다.(같은 단어라도 중복삭제 안됨)
+const deleteBtn = index => {
+const li = event.target.parentElement;
+li.remove();
+};
+
+〈ul>
+{todos.map((item, index) => (
+〈li key={index}>
+{item}
+〈button onClick={deleteBtn}>❌〈/button>
+〈/li>
+))}
+〈/ul>
+
+하지만 단순히 부모요소를 삭제하는게 아닌 배열에 들어가있는 index와 삭제할(버튼의 li) index를 찾아서 삭제할 경우 (filter함수 사용)
+const deleteBtn = index => {
+setTodos(todos.filter((item, todoIndex) => index !== todoIndex));
+};
+
+〈ul>
+{todos.map((item, index) => (
+〈li key={index}>
+{item}
+〈button onClick={() => deleteBtn(index)}>❌〈/button>
+〈/li>
+))}
+〈/ul>
+
+filter 함수에 넣는 두 번째 인자는 todos 배열에 있는 요소의 index가 들어간다.
+(두 번째 인자를 써본 경험이 없어서 새로 알게 된 사실)
+또한 onClick={deleteBtn} 이 아닌onClick={() => deleteBtn(index)} 이렇게 쓰는 이유는 "바로 실행"되지 않고 클릭을 기다리는 함수로 쓰기 위함
+
+@zipperdev @qjsro368 두 분 덕에 많이 배웠습니다 :)
+
+
+@kingoxpo
+
+"바로 실행"되지 않고 클릭을 기다리는 함수로 쓰기 위함 deleteBtn(index)} 이렇게 넘긴 이유는 index 값을 넘기기 위한 것이라고 생각하거든요.
+
+그리고 아마 니코샘이라면 setTodos 함수 이용할 때 todos 값을 필터하는 것보다는 setTodos에 함수를 전달하면 현재 todos 값이 전달되므로
+
+setToDos((curToDos) => curToDos.filter((_, curIndex) => curIndex !== index));
+
+이렇게 하지 않았을까 추측해봅니다. ^^ 즐거운 하루되세요.
+
+
+수강생 노트2)
+map() 함수
+-> 배열을 가지고 있을 때 각각의 element들을 바꿀 수 있게 해줌map() 은 ()에 함수를 넣을 수 있는데 배열의 모든 item에 대해 실행됨
+즉 배열에 6개의 item이 있다면 6번 함수가 실행됨
+그리고 그 함수로부터 내가 return한 값은 새로운 배열에 들어가게 함
+[‘a’, ‘b’, ‘c’, ‘d’, ‘e’, ‘f’].map(() => “:)”)
+-> [‘:)’, ‘:)’, ‘:)’, ‘:)’, ‘:)’ ‘:)’] 인 새 배열을 만들어줌
+다만 기존의 배열에 접근할 수 없게됨
+그러나 map은 함수의 첫 번째 argument로 현재의 item을 가지고 올 수 있음
+map(item) -> item이나 원하는 어떤 변수명을 넣으면 item자체를 리턴하는 것도 가능
+map((item) => item.toUpperCase())
+로 하면 item이 대문자로 바뀐 새로운 배열은 만들어줌
+
+리액트는 기본적으로 list에 있는 모든 item을 인식하기 때문에 key를 넣어 고유하게 만들어줘야함
+map의 첫 번째 argument는 값이고 두번째는 index 즉 숫자를 의미함
+그래서
+{toDos.map((item, index) => {item})}
+만들어줌
+즉,
+{{item},{item},{item}...}
+배열을 만들어 각자 고유의 key를 가지게 함
+
