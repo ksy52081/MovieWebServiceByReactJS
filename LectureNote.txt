@@ -1234,3 +1234,61 @@ map의 첫 번째 argument는 값이고 두번째는 index 즉 숫자를 의미�
 {{item},{item},{item}...}
 배열을 만들어 각자 고유의 key를 가지게 함
 
+
+#7.2 CoinTracker ~ API 사용하기
+
+coinpaprika 라는 api를 사용하자.
+불러오기 전까지는 로딩창을 불러오고
+로딩이 끝나면 코인 시세를 보여주고 싶다.
+
+
+＊ useEffect(f, [state1, state2, ...])
+state1, state2가 변할 때만 f함수를 수행한다,
+만일 state가 들어있지 않는 빈 리스트면 한번만 수행한다.
+
+＊데이터 덩어리를 가지면 ~ 무조건 state, setState를 새로 정의내리고 거기다 넣어둬라.
+
+map(f, index)
+첫번째 argument에는 함수가 들어가고, 두번째 argument에는 index가 내장되어있다.
+
+<ul>
+<li></li>
+<li></li>
+...
+</ul>
+
+<select>
+<option></option>
+<option></option>
+...
+</select>
+
+
+수강생 노트 1)
+코인 API에는 이미 key가 있으므로 안 가져와도 됨
+
+이 경우 coin이라는 변수는 coins 배열 안에 있는 각각의 coin을 의미함
+그래서 각각의 coin은 https://api.coinpaprika.com/v1/tickers 처럼 생겼음
+그래서 coin.name도 coin.symbol도 가져올 수 있음
+
+처음에는 기본값으로 비어있는 배열을 넘겨주기 때문에 coin이 처음엔 0개
+기본값을 적어도 빈값으로 정해주지 않으면 에러가 남
+
+https://github.com/SALT0601/ReactJS-Web/commit/ebce52caaf223783d9c230426f062e7b92bc182f
+
+
+수강생 노트2)
+화살표함수 쓰실때 위에것처럼 쓰시기도 하고 아래것처럼 사용하시는데 차이가뭔가요?
+=()=>
+=()=>{}
+
+A1 
+The first one has implicit return. 
+In the second one you have to write 'return'
+괄호가 없으면 그냥 그게 리턴값이고
+괄호가 있으면 return을 따로 선언해야한다.
+"() => {return [returnValue]}" 
+=== 
+"() => returnValue" 
+=== 
+"() => (returnValue)"
