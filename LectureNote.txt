@@ -1338,3 +1338,108 @@ div key={movie.id} h2{movie.title}/h2
 
 key={g} -> 따로 정해진 key가 없기 때문에 g를 가져와 key로 써줌
 단, g가 고유한 값일 경우에만 가능
+
+#7.4 
+별개의 커스텀 컴포넌트로 따로 만들때에는
+내부에서 의무적이던 <div key={}> 가 필요없어진다.
+대신에 커스텀 컴포넌트인 <Movie /> 를 불러올때
+ <Movie key={} /> 로 key값을 반드시 불러와야 한다.
+ ※ key는 react.js에서만, map 안에서 연달아 복수의 component를 render할 때 사용한다 
+
+이미지마다 alt를 넣어줘야한다.
+
+
+npm install react-router-dom@5.3.0 
+으로 나눈다음
+스크린별로(route별로)/ 나누어서 생각하기
+
+router 구조에서는 
+app이 더이상 기본 화면을 제공하지 않고
+router를 render하도록 기능이 바뀐다.
+원래 App()에서 보여줬던 화면은
+Home()에 담아둔다.
+
+localhost:3000 덩그러니가 아닌
+localhost:3000/movie 와 같은 변형된 url에 따라 다른 페이지를 보여주고자 한다.
+
+
+수강생 노트1)
+{genres.map((gen) => (
+{gen}
+))}
+이부분을
+{genres && genres.map((gen) => (
+{gen}
+))}
+이렇게 고쳐주지 않으면 에러가 나더라구요. 혹시 이유를 알 수 있을까요? ㅠ
+
+A저도 이부분 그랬는데요
+최근데 제공하는 api에서 genrnes가 없는 영화가 존재하는데
+그러한 경우 map을 할경우 없는 property에서 map을 한거여서 에러가 뜨던거였습니다.
+그래서 genres가 있는지 먼저 체크해주고 genres를 map으로 그려줘야지 에러가 안뜨더라구요
+
+A2
+저도 movie 정보에 genres가 없는 경우 TypeError가 떠서
+말씀하신대로 해보니까 에러가 사라지더라구요.
+애초에 props로 받는 genres가 정보가 없어서 undefined면
+&& 해주는 게 무슨 소용이지? 하면서 궁금해가지고
+Array 만들어서 이것저것 해봤는데요
+
+A && B 에서 둘중 하나라도 undefined면 undefined 반환
+둘 다 값이 존재한다면 && 오른쪽 값 반환 (B값 반환)
+
+A || B 에서 둘 다 undefined면 undefined 반환
+둘 중 하나만 값이 존재한다면 존재하는 값 반환
+둘 다 값이 존재한다면 || 왼쪽값 반환 (A값 반환)
+
+제가 해보니까 이런식으로 나와서 그걸 토대로 생각해봤습니다
+
+genres = A = undefined 라고 할 때 코드를 간단하게 표현하면
+
+{ A && A.map( ~~ ) }
+
+&& 의 경우 둘중 하나라도 undefined면 undefined값을 반환하는데
+A가 undefined 일 때 { A && 딱 여기까지만 왔을 때 이미
+{ } 값이 undefiend를 반환하는 것으로 결정돼서
+&& 뒤에 A.map(~~)은 패스하는 것 같습니다
+
+{ A.map( ~~ ) && A }
+
+A가 undefined일 때 이렇게 하면 에러가 뜨더군요
+
+아닌 게 있으면 지적과 정정부탁드리겠습니다!
+
+
+수강생 노트2)
+Movie 컴포넌트는 medium_cover_image, title, summary, genres
+-> 이 props를 모두 부모 컴포넌트로부터 받아옴
+
+coverImg={movie.medium_cover_image}
+자바스크립트에서는 medium_cover_image가 아닌mediumCoverImage로 쓰지만
+내가 만든 컴포넌트라 아무렇게 써도 됨.
+그러나 movie.medium_cover_image 에서는 API에서 가져오므로 API 정보와 똑같이 써야함
+이미지 element들을 alt속성을 가짐 -> alt={title}
+
+
+home 라우트(페이지)는 모든 영화를 보여주고
+Movie 라우트는 영화 하나만 보여줌
+이렇게 라우트 별로 생각해야함
+home 라우트는 기본적으로 App 컴포넌트 전체를 가지고 있게 만듦
+
+App에 있는 것을 모두 Home라우트로 옮겼으니
+App.js는 라우터를 렌더한다.
+
+
+수강생 노트3)
+Q home 도 컴포넌트라고 불러도 되는거죠? route(screen, page)의 개념에는 컴포넌트를 불러와서 보여준다는 의미가 있으니깐 라우트는 컴포넌트를 포함하는 상위개념인건가요?
+A YES!
+
+수강생 노트4)
+Q 
+props 랑 property 랑 좀 헷갈려서 질문드립니다.
+property는 JS에서 부터 들어왔는데 Object 안의 json 형식으로 주는 값들을 의미하는 거고
+props는 부모 컴포넌트가 자식 컴포넌트한테 넘겨준 값을 의미하는 건가요? 아니면 둘이 유사해서 그냥 혼용하는걸까요?
+
+A  Props = Properties. Imagine that a Component is an object and we give it properties. Same same.
+
+
