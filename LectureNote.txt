@@ -1292,3 +1292,49 @@ In the second one you have to write 'return'
 "() => returnValue" 
 === 
 "() => (returnValue)"
+
+
+
+#7.3
+    const fetchMovie = async () => {
+        const res = await fetch(
+        "https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year"
+        );
+        const json = await res.json();
+
+
+     const fetchMovie = async () => {
+        const json = await( await (await fetch('https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year')).json() );
+   };
+
+은 같은 거다.
+
+수강생 노트 1)
+movie api를 불러와서 genres 부분을 li 로 보여주는 부분에서
+genres가 없는 영화가 포함되는 경우가 발생하여서
+uncaught TypeError: Cannot read properties of undefined (reading 'map')
+에러가 발생하는 경우가 발생하였습니다.
+
+따라서 hasOwnProperty()함수를 이용하여
+미리 genres key가 있는지 확인하고 없으면 null로 처리하는 과정이 필요하다고 생각됩니다.
+
+//{(movie.hasOwnProperty("genres")? ul
+// {movie.genres.map((g)=>(
+// li key={g}>{g}/li
+// ))}
+// /ul : null)}
+
+그래도 가져다 쓰시면 안되고 html 태그 부분들에 <>붙여주셔야됩니다.
+
+수강생 노트2)
+fetch, json을 진행 후 로딩을 끝냈기 때문에 반드시 setLoading(false)를 해줘야함
+then대신에 async-await를 보편적으로 사용함
+await을 감싸는 await을 만들 수 있음
+movies.map((movie
+->map의 argument는 x, m, g 등등 마음대로 해도됨
+여기선 movie라고 정함
+div key={movie.id} h2{movie.title}/h2
+-> 이 컴포넌트들은 movie 배열에 있는 각 movie에서 변형되어 나온 것
+
+key={g} -> 따로 정해진 key가 없기 때문에 g를 가져와 key로 써줌
+단, g가 고유한 값일 경우에만 가능
