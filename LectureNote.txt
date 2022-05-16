@@ -1443,3 +1443,81 @@ props는 부모 컴포넌트가 자식 컴포넌트한테 넘겨준 값을 의�
 A  Props = Properties. Imagine that a Component is an object and we give it properties. Same same.
 
 
+#7.5 
+react-router-dom 튜토리얼
+
+Router의 두가지 종류
+Hash Router     localhost:3000/#/movie
+Browser Router  localhost:3000/movie
+
+
+
+
+Route는 URL을 말한다.
+Route를 찾으면 컴포넌트를 렌더링한다.
+
+<Route path="/">
+은 home 으로 간다는 의미이다.
+
+<Switch> 컴포넌트는 한번에 하나의 Route만 렌더링 하기 위해서 넣었다.
+~ React Router에서는 사용자가 원한다면 두개의 Route를 한번에 렌더링 할 수 있다!
+
+한 Route에서 다른 Route로 이동하는 방법!
+
+Link는 브라우저의 새로고침 없이도 유저를 다른 페이지로 이동시켜주는 컴포넌트
+
+<Route path="니가 적을 url">
+    <보여주고 싶은 컴포넌트 />
+</Route>
+
+수강생 노트1)
+Attempted import error: 'Switch' is not exported from 'react-router-dom와 같은 오류가 발생하여 Switch를 Routes로 바꿔준뒤 실행하였더니
+
+[Home] is not a component. All component children of must be a or 와 같은 오류가 발생하여
+
+결과적으로 아래와 입력 하였더니 잘 실행이 되었습니다.
+
+return (
+Router>
+Routes>
+Route path="/" element={Home />} />
+Routes>
+Router>
+);
+Router, Route, Routes, Home 앞에 < 붙여주셔야해요
+
+수강생 노트2)
+react-router-dom
+npm i react-router-dom@5.3.0
+https://v5.reactrouter.com/web/guides/quick-start
+
+react-router-dom 5버전 -> 버전6 바뀐 부분
+
+1. Switch컴포넌트가 Routes컴포넌트로 대체되었습니다.
+Switch -> Routes
+
+2. Route컴포넌트 사이에 자식 컴포넌트를 넣지 않고, element prop에 자식 컴포넌트를 할당하도록 바뀌었습니다.
+Route path="/" element={< Home / >}
+
+react-router-dom 6버전 문서
+https://reactrouter.com/docs/en/v6/getting-started/overview
+
+수강생 노트3)
+1) 더이상 Switch는 쓰이지 않는다(버젼 6이상). 이제 그역할은 Routes가 대신할 것이다 (공식문서 참조), 또한 Route 태그의 exact 속성도 더이상 쓰이지 않으며 Routes가 알아서 최적의 경로배정을 해주기 때문에 Switch를 썼을 때의 고민을 말끔히 해결해 준다
+2) BROWSER ROUTER가 일반적인 방식이며, HASHROUTER는 잘 쓰이진 않는다(뒤에 #이런게 붙음)
+3) 한 라우트에서 다른 라우트로 가고 싶을 땐 a태그의 href을 속성이 가장 먼저 생각이 날 것이고, 실제로도 그렇게 코드를 작성하면 이동이 가능하다. 하지만 페이지 전체가 새로고침되기 때문에 리액트의 장점을 깎아먹는다. 따라서 재실행되는 것을 막기 위해 react-router-dom에서 import한 link 태그를 사용하면 된다
+
+수강생 노트4)
+path=“/” -> 홈화면으로 간다는 의미
+
+BrowserRouter - > 일반적인 홈페이지 경로
+HashRouter -> 앞에 /#/가 붙음
+
+Switch를 넣어준 이유는 한 번에 하나의 라우트만 렌더링 하기 위해서임
+왜냐하면 리액트 라우트는 두 개의 라우트를 한번에 렌더링 하는것도 가능하기 때문
+
+Link
+-> 브라우저 새로고침 없이도 유저를 다른 페이지로 이동시켜주는 컴포넌트
+Link to="/Movie"{title}/Link이런 식으로 작성
+
+라우터 안에 컴포넌트만 넣어주면 리액트 라우터가 해당 경로일 때 그 컴포넌트를 보여준다.
