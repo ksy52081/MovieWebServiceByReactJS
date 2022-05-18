@@ -17,20 +17,34 @@ const getMovie = async() => {
     ).json();
     console.log(json);
     setDetail(json.data.movie);
+    setLoading(false);
 }
 
   useEffect(() => {
     getMovie();
-    setLoading(false);
   }, [id])
-    return <Movie
-    key={detail.id}
-    id={detail.id}
-    coverImg={detail.medium_cover_image}
-    title={detail.title}
-    summary={detail.summary}
-    genres={detail.genres}
-  />;
+    return (
+    <div>
+    {loading ? (
+      <h1> Loading...</h1>
+    ) : (
+      <div>
+          <Movie
+          key={detail.id}
+          id={detail.id}
+          coverImg={detail.medium_cover_image}
+          title={detail.title}
+          summary={detail.summary}
+          genres={detail.genres}
+        />
+        <div>{detail.description_full} </div>
+        <div>{`Language : ${detail.language}`} </div>
+        <div>{`Rating : ${detail.rating}`} </div>
+        <div>{`Runtime : ${detail.runtime}`} </div>
+      </div>
+    )}
+  </div>
+    )
 }
 
 export default Detail;
