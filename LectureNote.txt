@@ -1542,3 +1542,61 @@ React Router에서 제공하는 함수 ~ url에 있는 (변수)값을 반환해�
  
 
  {id: '42140'}
+
+
+ #7.7 Publishing
+
+ npm i gh-pages
+
+ npm run build
+
+ package.json 파일에
+ "homepage" : "https://ksy52081.github.io/MovieWebServiceByReactJS"
+
+와
+   "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
+  },
+
+deploy와 predeploy를 추가한다.
+
+npm run deploy를 명령하면
+따로 이 이상의 코드를 작성하지 않더라도.
+npm run predeploy도 먼저 실행한 후 npm run deploy를 실행해준다.
+
+
+
+수강생 노트1)
+혹시 React router 6버전(react-router-dom 6 이상 버전)으로 진행하시는 분들 중 gh-pages로 배포 후, 빈 화면이 나온다면 Route컴포넌트의 path경로 앞에 process.env.PUBLIC_URL을 추가해서 수정을 해주시면 됩니다.
+
+```
+Route path={`${process.env.PUBLIC_URL}/`} element={< Home />}
+```
+
+수강생 노트2)
+deploy를 했을때 홈 화면은 잘보이는데 Detail 화면으로 넘어가지 않는 경우, 컴포넌트에 basename={process.env.PUBLIC_URL}을 추가해보세요. 이렇게 하니까 잘 작동하네요!
+
+Router에 속성값으로 basename={process.env.PUBLIC_URL}을 넣으니 Error with Permissions-Policy header: Unrecognized feature: 'interest-cohort' 가 사라지면서 페이지가 잘 동작합니다. 감사합니다.
+
+https://babooteng2.github.io/react-practice-movieapp/
+
+Route path={process.env.PUBLIC_URL + "/"} element={Home />} /> 이런식으로 하시면 됩니다
+
+404 error 떠있었습니다.
+1. npm install --save gh-pages를 하고 다시 run deploy하니까 published가 뜨면서 404 error 대신 빈 화면이 나왔습니다.
+
+2. 이후 댓글에서 말씀하신 Route path={`${process.env.PUBLIC_URL}/`} element={Home} 로 수정후 다시 deploy하니까 제대로 나오네요.
+
+이틀을 이것때문에 진도도 못나가고 고민많이 했는데, CLI로 리액트앱 deploy를 성공시키니까 진짜 뿌듯하네요.
+
+수강생 노트3)
+하 안돼서 두시간넘게 헤맸는데 사용자이름이 틀렸었었네요...
+git config --global user.name
+터미널에 입력해서 유저이름 확인할 수 있어요
+
+
